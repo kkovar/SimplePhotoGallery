@@ -138,9 +138,32 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Upload\FilesStatus.cs" />
+    <Compile Include="Upload\UploadHandler.ashx.cs">
+      <DependentUpon>UploadHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\ImageResizer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Bootstrap\bootstrap-image-gallery.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-image-gallery.min.js" />
+    <Content Include="Content\Bootstrap\bootstrap-responsive.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap.min.js" />
+    <Content Include="Content\FileUpload\canvas-to-blob.min.js" />
+    <Content Include="Content\FileUpload\jquery.fileupload-ip.js" />
+    <Content Include="Content\FileUpload\jquery.fileupload-ui.css" />
+    <Content Include="Content\FileUpload\jquery.fileupload-ui.js" />
+    <Content Include="Content\FileUpload\jquery.fileupload.js" />
+    <Content Include="Content\FileUpload\jquery.iframe-transport.js" />
+    <Content Include="Content\FileUpload\load-image.min.js" />
+    <Content Include="Content\FileUpload\locale.js" />
+    <Content Include="Content\FileUpload\main.js" />
+    <Content Include="Content\FileUpload\tmpl.min.js" />
+    <Content Include="Content\img\generalFile.png" />
+    <Content Include="Content\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\img\loading.gif" />
+    <Content Include="Content\img\progressbar.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -237,6 +260,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\UploadPictures\Save.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\img\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Upload\UploadHandler.ashx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
