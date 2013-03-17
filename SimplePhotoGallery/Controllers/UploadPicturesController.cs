@@ -40,7 +40,7 @@ namespace SimplePhotoGallery.Controllers
             imgPhoto = ImageResize.ScaleByPercent(imgPhotoOriginal, 20);
 
             // todo: rename file if it exists
-            imgPhoto.Save(AppDomain.CurrentDomain.BaseDirectory + @"\images\thumbs\" + hpf.FileName, ImageFormat.Jpeg,);
+            imgPhoto.Save(AppDomain.CurrentDomain.BaseDirectory + @"\images\thumbs\" + hpf.FileName, ImageFormat.Jpeg);
             imgPhoto.Dispose();
 
 
