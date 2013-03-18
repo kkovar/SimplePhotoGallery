@@ -13,6 +13,7 @@ namespace jQuery_File_Upload.MVC4.Upload
     {
         private readonly JavaScriptSerializer js;
 
+        // todo, make the uploader work with a user specified or "Current" gallery
         private string StorageRoot
         {
             get { return Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/")); } //Path should! always end with '/'

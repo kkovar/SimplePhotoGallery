@@ -5,15 +5,16 @@
 <h2>Index</h2>
 
 <!-- todo, allow specification of gallery directory and creation via a new gallery link -->
-@if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\images\thumbs\"))
+@if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\Files\"))
 {
-    Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\images\thumbs\");
+    Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\Files\");
 }
-else 
+else
 {
-    foreach (var f in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + @"\images\thumbs\", "*.jpg"))
-            {
-    var img = Path.GetFileName(f);
-    <img src="~/images/thumbs/@img" height="90" />
-            }
-            }
+    foreach (var f in Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Files\", "*.jpg"))
+    {
+        var img = Path.GetFileName(f);
+        // todo: make the uploader generate thumbs and specify the gallery and thumbnail directories
+        <img src="~/Files/@img" height="90" />
+    }
+}
