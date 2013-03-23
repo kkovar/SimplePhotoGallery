@@ -11,9 +11,11 @@ namespace SimplePhotoGallery.Controllers
         //
         // GET: /Gallery/
 
-        public ActionResult Index()
+        public ActionResult Index(string Id)
         {
-            return View();
+            // todo, improve the path mapping
+            Object galleryDir = Id;
+            return View(galleryDir);
         }
 
     }

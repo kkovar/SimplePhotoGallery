@@ -12,11 +12,12 @@ namespace jQuery_File_Upload.MVC4.Upload
     public class UploadHandler : IHttpHandler
     {
         private readonly JavaScriptSerializer js;
+        private const string GalleryDirectory = "~/Galleries/";
 
         // todo, make the uploader work with a user specified or "Current" gallery
         private string StorageRoot
         {
-            get { return Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/")); } //Path should! always end with '/'
+            get { return System.Web.HttpContext.Current.Server.MapPath(GalleryDirectory); } //Path should! always end with '/'
         }
 
         public UploadHandler()
@@ -130,7 +131,7 @@ namespace jQuery_File_Upload.MVC4.Upload
             {
                 var file = context.Request.Files[i];
 
-                var fullPath = StorageRoot + Path.GetFileName(file.FileName);
+                var fullPath = Path.Combine(StorageRoot, context.Request.Form["gallery"],Path.GetFileName(file.FileName));
 
                 file.SaveAs(fullPath);
 

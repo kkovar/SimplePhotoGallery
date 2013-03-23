@@ -19,9 +19,22 @@ namespace SimplePhotoGallery.Controllers
             get { return Path.Combine(Server.MapPath("~/Files")); }
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string Id)
         {
-            return View();
+            return View("Index", Id);
+        }
+
+
+        public ActionResult MakeGallery(string Id)
+        {
+            Object model = Id;
+            var imgDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Galleries", Id);
+
+            if (!Directory.Exists(imgDir))
+            {
+                Directory.CreateDirectory(imgDir);
+            }           
+            return View("Index", model);
         }
 
         //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
@@ -134,7 +147,7 @@ namespace SimplePhotoGallery.Controllers
             {
                 var file = request.Files[i];
 
-                var fullPath = Path.Combine(StorageRoot, Path.GetFileName(file.FileName));
+                var fullPath = Path.Combine(request.Form["gallery"],Path.GetFileName(file.FileName));
 
                 file.SaveAs(fullPath);
 
