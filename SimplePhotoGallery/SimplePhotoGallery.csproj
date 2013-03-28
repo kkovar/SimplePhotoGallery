@@ -157,6 +157,7 @@
     <Content Include="Content\FileUpload\jquery.fileupload-ui.js" />
     <Content Include="Content\FileUpload\jquery.fileupload.js" />
     <Content Include="Content\FileUpload\jquery.iframe-transport.js" />
+    <Content Include="Content\FileUpload\load-image.js" />
     <Content Include="Content\FileUpload\load-image.min.js" />
     <Content Include="Content\FileUpload\locale.js" />
     <Content Include="Content\FileUpload\main.js" />

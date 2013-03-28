@@ -147,6 +147,7 @@ namespace SimplePhotoGallery.Controllers
             {
                 var file = request.Files[i];
 
+                // todo: make the URL/routing scheme be a "separation of concern" rather than hardcoding
                 var fullPath = Path.Combine(request.Form["gallery"],Path.GetFileName(file.FileName));
 
                 file.SaveAs(fullPath);
