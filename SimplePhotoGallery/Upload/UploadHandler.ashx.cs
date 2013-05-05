@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using SimplePhotoGallery.Models;
+using System;
 
 namespace jQuery_File_Upload.MVC4.Upload
 {
@@ -11,6 +13,7 @@ namespace jQuery_File_Upload.MVC4.Upload
     /// </summary>
     public class UploadHandler : IHttpHandler
     {
+        private GalleryContext db = new GalleryContext();
         private readonly JavaScriptSerializer js;
         private const string GalleryDirectory = "~/Galleries/";
 
@@ -132,11 +135,30 @@ namespace jQuery_File_Upload.MVC4.Upload
                 var file = context.Request.Files[i];
 
                 var fullPath = Path.Combine(StorageRoot, context.Request.Form["gallery"],Path.GetFileName(file.FileName));
+                var fileTitle = context.Request.Form[file.FileName.Replace(" ", "").Replace(".","")];
 
-                file.SaveAs(fullPath);
+                // the file title is a description
 
-                string fullName = Path.GetFileName(file.FileName);
-                statuses.Add(new FilesStatus(fullName, file.ContentLength, fullPath));
+                var img = new GalleryImage();
+                img.Filename = fullPath;
+                img.Title = fileTitle;
+
+                try
+                {
+                    db.Images.Add(img);
+                    db.SaveChanges();
+
+                    file.SaveAs(fullPath);
+
+                    string fullName = Path.GetFileName(file.FileName);
+                    statuses.Add(new FilesStatus(fullName, file.ContentLength, fullPath));
+                }
+                catch (Exception e)
+                {
+                    // todo, find out how to report the error to the web page
+                    context.Response.Write("<p>Exception " + e.Message + "</p>" );
+
+                }
             }
         }
 

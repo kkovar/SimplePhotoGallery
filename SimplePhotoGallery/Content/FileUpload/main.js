@@ -15,6 +15,8 @@
 $(function () {
     'use strict';
 
+    $('body').data("pictureRow", 55) ;
+
     // Initialize the jQuery File Upload widget:
     $('#fileupload').fileupload();
 
@@ -24,3 +26,5 @@ $(function () {
             resizeMaxHeight: 1200
         });
 });
+
+alert("data is " + $('body').data("pictureRow"));
