@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimplePhotoGallery.Utilities;
 using System.Drawing;
 using System.Drawing.Imaging;
+using SimplePhotoGallery.Models;
 
 namespace SimplePhotoGallery.Tests.Utilities
 {
@@ -43,5 +44,22 @@ namespace SimplePhotoGallery.Tests.Utilities
 
 
         }
+
+        [TestMethod]
+        public void SetupThumbnails()
+        {
+            GalleryContext db = new GalleryContext();
+
+            Thumbnail tn = new Thumbnail();
+            tn.Description = "medium";
+            tn.MaxWidth = 600;
+            db.Thumbnails.Add(tn);
+            db.SaveChanges();
+
+            GalleryImage master = new GalleryImage();
+            master.Filename = @"C:\Users\Ken\Documents\GitHub\SimplePhotoGallery\SimplePhotoGallery\Images\img_0519.jpg";
+            //master.
+        }
+
     }
 }

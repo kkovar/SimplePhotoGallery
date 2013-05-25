@@ -130,6 +130,14 @@ namespace jQuery_File_Upload.MVC4.Upload
         // Upload entire file
         private void UploadWholeFile(HttpContext context, List<FilesStatus> statuses)
         {
+            // hack to see if thumbnails can be added
+            Thumbnail tn = new Thumbnail();
+            tn.Description = "medium";
+            tn.MaxWidth = 600;
+            db.Thumbnails.Add(tn);
+            db.SaveChanges(); 
+            
+            
             for (int i = 0; i < context.Request.Files.Count; i++)
             {
                 var file = context.Request.Files[i];
@@ -145,6 +153,8 @@ namespace jQuery_File_Upload.MVC4.Upload
 
                 try
                 {
+
+                    
                     db.Images.Add(img);
                     db.SaveChanges();
 
