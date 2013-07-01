@@ -4,6 +4,7 @@ using SimplePhotoGallery.Utilities;
 using System.Drawing;
 using System.Drawing.Imaging;
 using SimplePhotoGallery.Models;
+using System.Linq;
 
 namespace SimplePhotoGallery.Tests.Utilities
 {
@@ -50,15 +51,52 @@ namespace SimplePhotoGallery.Tests.Utilities
         {
             var db = new GalleryContext();
 
-            Thumbnail tn = new Thumbnail();
-            tn.Description = "medium";
-            tn.MaxWidth = 600;
-            db.Thumbnails.Add(tn);
-            db.SaveChanges();
+            //db.Thumbnails.Where(t => t.Description == "medium");
+
+            var thumbs = from t in db.Thumbnails where t.MaxHeight == 600 select t;
+
+            var tu = thumbs.First();
+
+           // var tu = db.Thumbnails.();
+
+            //Thumbnail tn = new Thumbnail();
+            //tn.Description = "medium";
+            //tn.MaxWidth = 600;
+            //db.Thumbnails.Add(tn);
+            //db.Thumbnails.SaveChanges();
 
             GalleryImage master = new GalleryImage();
             master.Filename = @"C:\Users\Ken\Documents\GitHub\SimplePhotoGallery\SimplePhotoGallery\Images\img_0519.jpg";
-            //master.
+            var mediumThumb = master.CreateThumbnail(tu, "medium");
+            db.Images.Add(master);
+            db.Images.Add(mediumThumb);
+
+            db.SaveChanges();
+
+
+
+        }
+        [TestMethod]
+        public void RetrieveParentImage()
+        {
+            // when the images are used, we need to convert the images to urls. So we should have
+            // base filename and path in addition to extension so we can help build the url with routing
+            // for this test we can use the file names
+          
+            GalleryContext db = new GalleryContext();
+
+            //db.Thumbnails.Where(t => t.Description == "medium");
+
+            //var images = from t in db.Images where t.ParentImage == null select t;
+
+            var imgs = db.Images.Include("ParentImage").Where(i => i.ParentImage != null).ToList();
+
+            var xi = 1;
+
+            //var testMasterImage = images.First();
+          
+
+
         }
 
     }
