@@ -48,7 +48,7 @@ namespace SimplePhotoGallery.Tests.Utilities
         [TestMethod]
         public void SetupThumbnails()
         {
-            GalleryContext db = new GalleryContext();
+            var db = new GalleryContext();
 
             Thumbnail tn = new Thumbnail();
             tn.Description = "medium";

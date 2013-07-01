@@ -1,0 +1,54 @@
+﻿@model SimplePhotoGallery.Models.Thumbnail
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Thumbnail</legend>
+
+        @Html.HiddenFor(model => model.ThumbnailId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaxHeight)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxHeight)
+            @Html.ValidationMessageFor(model => model.MaxHeight)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaxWidth)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxWidth)
+            @Html.ValidationMessageFor(model => model.MaxWidth)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

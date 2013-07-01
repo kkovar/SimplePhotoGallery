@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SimplePhotoGallery.Models.Thumbnail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxHeight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxWidth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxHeight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxWidth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ThumbnailId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ThumbnailId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ThumbnailId })
+        </td>
+    </tr>
+}
+
+</table>

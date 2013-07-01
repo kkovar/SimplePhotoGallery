@@ -1,0 +1,36 @@
+﻿@model SimplePhotoGallery.Models.Thumbnail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Thumbnail</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MaxHeight)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MaxHeight)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MaxWidth)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MaxWidth)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ThumbnailId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
