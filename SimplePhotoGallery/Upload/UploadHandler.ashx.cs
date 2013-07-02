@@ -131,11 +131,11 @@ namespace jQuery_File_Upload.MVC4.Upload
         private void UploadWholeFile(HttpContext context, List<FilesStatus> statuses)
         {
             // hack to see if thumbnails can be added
-            Thumbnail tn = new Thumbnail();
-            tn.Description = "medium";
-            tn.MaxWidth = 600;
-            db.Thumbnails.Add(tn);
-            db.SaveChanges(); 
+            //Thumbnail tn = new Thumbnail();
+            //tn.Description = "medium";
+            //tn.MaxWidth = 600;
+            //db.Thumbnails.Add(tn);
+            //db.SaveChanges(); 
             
             
             for (int i = 0; i < context.Request.Files.Count; i++)
@@ -143,6 +143,7 @@ namespace jQuery_File_Upload.MVC4.Upload
                 var file = context.Request.Files[i];
 
                 var fullPath = Path.Combine(StorageRoot, context.Request.Form["gallery"],Path.GetFileName(file.FileName));
+                // hack using the file name to access the title field via the file name
                 var fileTitle = context.Request.Form[file.FileName.Replace(" ", "").Replace(".","")];
 
                 // the file title is a description

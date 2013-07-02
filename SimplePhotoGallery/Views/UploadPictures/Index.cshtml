@@ -30,7 +30,7 @@
     <div class="control-group">
         <label class="control-label" for="uploadDestination">Upload Destination:</label>
         <div class="controls">
-          <input type="text" id="uploadDestination" placeholder="GalleryImages">
+          <input type="text" id="uploadDestination" name="uploadDestination" placeholder="GalleryImages">
         </div>  
     </div>      
     <div class="row fileupload-buttonbar">
@@ -54,6 +54,7 @@
                     <span>Delete</span>
                 </button>
                 <input type="checkbox" class="toggle">
+                <!-- This was an attempt to get the gallery name via a parameter from the controller -->
                 <input type="hidden" value="@Model" name="gallery"/> 
             </div>
             <div class="span5">
@@ -97,7 +98,8 @@
         </div>
     </div>
 
-<!-- The template to display files available for upload -->
+<!-- The template to display files available for upload.. the picturetitle field was put in to get a title but indexing the name to generate a unique
+    field name did not seem to work. -->
 <script id="template-upload" type="text/x-tmpl">
 
 {% for (var i=0, file,textboxname; file=o.files[i]; i++) {  %}
