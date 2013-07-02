@@ -25,9 +25,15 @@
 
 }
 
-<form id="fileupload" action="/Upload/UploadHandler.ashx" method="POST" enctype="multipart/form-data">
+<form id="fileupload" class="form-horizontal" action="/Upload/UploadHandler.ashx" method="POST" enctype="multipart/form-data">
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-        <div class="row fileupload-buttonbar">
+    <div class="control-group">
+        <label class="control-label" for="uploadDestination">Upload Destination:</label>
+        <div class="controls">
+          <input type="text" id="uploadDestination" placeholder="GalleryImages">
+        </div>  
+    </div>      
+    <div class="row fileupload-buttonbar">
             <div class="span7">
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button">
