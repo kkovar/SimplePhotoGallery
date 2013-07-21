@@ -15,7 +15,9 @@ namespace jQuery_File_Upload.MVC4.Upload
     {
         private GalleryContext db = new GalleryContext();
         private readonly JavaScriptSerializer js;
-        private const string GalleryDirectory = "~/Galleries/";
+
+        // this should be in the image manager
+        private string GalleryDirectory = "~/Galleries/";
 
         // todo, make the uploader work with a user specified or "Current" gallery
         private string StorageRoot
@@ -136,13 +138,17 @@ namespace jQuery_File_Upload.MVC4.Upload
             //tn.MaxWidth = 600;
             //db.Thumbnails.Add(tn);
             //db.SaveChanges(); 
-            
+
+            if (context.Request.Form["uploadDestination"] != null)
+            {
+                GalleryDirectory = "~/" + context.Request.Form["uploadDestination"] + "/";
+            }
             
             for (int i = 0; i < context.Request.Files.Count; i++)
             {
                 var file = context.Request.Files[i];
 
-                var fullPath = Path.Combine(StorageRoot, context.Request.Form["gallery"],Path.GetFileName(file.FileName));
+                var fullPath = Path.Combine(StorageRoot, Path.GetFileName(file.FileName));
                 // hack using the file name to access the title field via the file name
                 var fileTitle = context.Request.Form[file.FileName.Replace(" ", "").Replace(".","")];
 

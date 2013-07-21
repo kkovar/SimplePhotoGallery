@@ -67,12 +67,19 @@ namespace SimplePhotoGallery.Tests.Utilities
 
             GalleryImage master = new GalleryImage();
             master.Filename = @"C:\Users\Ken\Documents\GitHub\SimplePhotoGallery\SimplePhotoGallery\Images\img_0519.jpg";
-            var mediumThumb = master.CreateThumbnail(tu, "medium");
             db.Images.Add(master);
+
+            var mediumThumb = new ScaledImage(tu, master);
+
+            // this adds the medium thumb to the ProcessedImages collection
+            mediumThumb.Process();
+
+            // todo: add initialization code to ScaledImage to pass in BaseImage and Thumbnail
+            //master.CreateThumbnail(tu, "medium");
             db.Images.Add(mediumThumb);
 
             db.SaveChanges();
-
+            
 
 
         }
@@ -89,7 +96,7 @@ namespace SimplePhotoGallery.Tests.Utilities
 
             //var images = from t in db.Images where t.ParentImage == null select t;
 
-            var imgs = db.Images.Include("ParentImage").Where(i => i.ParentImage != null).ToList();
+            var imgs = db.Images.OfType<ProcessedImage>().Where(i => i.BaseImage != null).ToList();
 
             var xi = 1;
 

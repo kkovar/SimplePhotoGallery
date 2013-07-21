@@ -168,6 +168,22 @@
     <Compile Include="Migrations\201306301656446_AddArtistAndImageParent.Designer.cs">
       <DependentUpon>201306301656446_AddArtistAndImageParent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201307071233534_RefineGalleryImage.cs" />
+    <Compile Include="Migrations\201307071233534_RefineGalleryImage.Designer.cs">
+      <DependentUpon>201307071233534_RefineGalleryImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201307170500349_RedoImageHierarchy.cs" />
+    <Compile Include="Migrations\201307170500349_RedoImageHierarchy.Designer.cs">
+      <DependentUpon>201307170500349_RedoImageHierarchy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201307211424218_convertICollectionToList.cs" />
+    <Compile Include="Migrations\201307211424218_convertICollectionToList.Designer.cs">
+      <DependentUpon>201307211424218_convertICollectionToList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201307211445100_removeVirtualCollection.cs" />
+    <Compile Include="Migrations\201307211445100_removeVirtualCollection.Designer.cs">
+      <DependentUpon>201307211445100_removeVirtualCollection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\GalleryModels.cs" />
@@ -331,6 +347,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306301656446_AddArtistAndImageParent.resx">
       <DependentUpon>201306301656446_AddArtistAndImageParent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201307071233534_RefineGalleryImage.resx">
+      <DependentUpon>201307071233534_RefineGalleryImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201307170500349_RedoImageHierarchy.resx">
+      <DependentUpon>201307170500349_RedoImageHierarchy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201307211424218_convertICollectionToList.resx">
+      <DependentUpon>201307211424218_convertICollectionToList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201307211445100_removeVirtualCollection.resx">
+      <DependentUpon>201307211445100_removeVirtualCollection.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

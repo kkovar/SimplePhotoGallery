@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace SimplePhotoGallery.Models
 {
@@ -24,16 +25,40 @@ namespace SimplePhotoGallery.Models
     {
         public GalleryImage()
         {
+            ProcessedImages = new List<ProcessedImage>();
+            Galleries = new List<Gallery>();
         }
         public int GalleryImageId { get; set; }
-        // will be set if this a scaled image
-        public virtual GalleryImage ParentImage { get; set; }
-
+ 
+        // local file system name
         public string Filename { get; set; }
         // this would be something creative like "Lady in White Dress"!
         public string Title { get; set; }
         // longer description or critical note
         public string Commentary { get; set; }
+ 
+        // any scaled, enhanced, colorized images based on this image
+        public List<ProcessedImage> ProcessedImages  { get; set; }
+ 
+        
+
+
+        // navigation property to garlleries which it belongs to
+        public List<Gallery> Galleries { get; set; }
+
+        public GalleryImage(GalleryImage rhs) 
+        {
+            this.Commentary = rhs.Commentary;
+            this.Title = rhs.Title;
+
+        }
+
+
+
+    }
+
+    public class OriginalImage : GalleryImage
+    {
         // fields to help filter/organize into galleries.
         // "Kiszka", Eve, etc
         public string Subject { get; set; }
@@ -41,71 +66,58 @@ namespace SimplePhotoGallery.Models
         public string Location { get; set; }
         // "Eve's Bday"
         public string Event { get; set; }
+
         // note that we also have EXIF metadata that can be extracted
 
-        private string _ext;
-        public string Extension
+    }
+
+    // represents a image that has been altered, in this iteration it will be 
+    // scaling to the appropriate thumbnail size
+    public abstract class ProcessedImage : GalleryImage
+    {
+        public virtual GalleryImage BaseImage { get; set; }
+        // override to provide image manipulation
+        public abstract void Process() ;
+
+    }
+
+    // I am inclined to put the processing code into the processed image,
+    // as the original image should not depend on and have code for all image types
+    public class ScaledImage : ProcessedImage
+    {
+        public ScaledImage(Thumbnail thumbNail, GalleryImage baseImage)
         {
-            get
-            {
-                if (_ext == null)
-                {
-                    return ".jpg";
-                }
-                else return _ext;
-
-            }
-            set 
-            {
-                _ext = value;
-
-            }
+            BaseImage = baseImage;
+            Thumbnail = thumbNail;
         }
-
         // property that contains a reference to a thumbnail,set
         public virtual Thumbnail Thumbnail { get; set; }
 
-        // navigation property to garlleries which it belongs to
-        public virtual ICollection<Gallery> Galleries { get; set; }
-
-        public GalleryImage(GalleryImage rhs) 
+        public override void Process()
         {
-            this.Commentary = rhs.Commentary;
-            this.Extension = rhs.Extension;
-            this.Title = rhs.Title;
 
-        }
-
-        public GalleryImage CreateThumbnail(Thumbnail tn, string thumbName)
-        {
-           try
+            try
             {
-                Image imgPhotoVert = Image.FromFile(Filename);
+                Image imgPhotoVert = Image.FromFile(this.BaseImage.Filename);
 
-                Image imgPhoto = ImageResize.ConstrainProportions(imgPhotoVert, tn.MaxWidth, ImageResize.Dimensions.Width);
-                var fn = thumbName;
+                Image imgPhoto = ImageResize.ConstrainProportions(imgPhotoVert, Thumbnail.MaxWidth, ImageResize.Dimensions.Width);
 
-                if (fn == null)
-                {
-                    fn = Filename + "_" + tn.Description + Extension;
+                // todo: give user a way to specify an alternative file name for the thumb
+                Filename =  Path.Combine(Path.GetDirectoryName(BaseImage.Filename),( Path.GetFileNameWithoutExtension(BaseImage.Filename) + "_" + Thumbnail.Description + Path.GetExtension(BaseImage.Filename)));
 
-                }
-                imgPhoto.Save(fn, ImageFormat.Jpeg);
+
+                imgPhoto.Save(Filename, ImageFormat.Jpeg);
                 imgPhoto.Dispose();
-                var thumbImage = new GalleryImage(this);
-               // todo, test that thumbnail images have a column that contains a parent image id
-                thumbImage.ParentImage = this;
-                thumbImage.Filename = fn;
-                thumbImage.Thumbnail = tn;
-                return thumbImage;
+                // todo, test that thumbnail images have a column that contains a parent image id
+                BaseImage.ProcessedImages.Add(this);
 
             }
             catch (Exception e)
             {
                 // log the exception
-                return null;
+                return ;
             }
-        }
+        }        
 
     }
 
@@ -113,7 +125,7 @@ namespace SimplePhotoGallery.Models
     {
         public int ArtistId { get; set; }
         // navigation property to the galleries that
-        public virtual ICollection<Gallery> Galleries { get; set; }
+        public List<Gallery> Galleries { get; set; }
         public string ArtistsStatement { get; set; }
         public string Bio { get; set; }
 
@@ -129,9 +141,9 @@ namespace SimplePhotoGallery.Models
     {
         public int GalleryId { get; set; }
         // navigation property to the images
-        public virtual ICollection<GalleryImage> Images { get; set; }
+        public List<GalleryImage> Images { get; set; }
         // n
-        public virtual ICollection<Artist> Contributors { get; set; }
+        public List<Artist> Contributors { get; set; }
         public string ArtistsStatement { get; set; }
         public string Description { get; set; }
 
@@ -143,6 +155,7 @@ namespace SimplePhotoGallery.Models
         public DbSet<Gallery> Galleries { get; set; }
         public DbSet<Thumbnail> Thumbnails { get; set; }
         public DbSet<Artist> Artists { get; set; }
+        //public DbSet<ProcessedImage> ProcessedImages { get; set; }
 
     }
 }
