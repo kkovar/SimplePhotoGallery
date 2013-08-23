@@ -17,12 +17,18 @@ namespace jQuery_File_Upload.MVC4.Upload
         private readonly JavaScriptSerializer js;
 
         // this should be in the image manager
-        private string GalleryDirectory = "~/Galleries/";
+        private string GalleryDirectory = "~/GalleryImages/";
 
         // todo, make the uploader work with a user specified or "Current" gallery
         private string StorageRoot
         {
-            get { return System.Web.HttpContext.Current.Server.MapPath(GalleryDirectory); } //Path should! always end with '/'
+            get { 
+                return System.Web.HttpContext.Current.Server.MapPath(GalleryDirectory); 
+            } 
+            //get { 
+            //    return  VirtualPathUtility.GetDirectory(GalleryDirectory); 
+            //} 
+            //Path should! always end with '/'
         }
 
         public UploadHandler()
@@ -139,8 +145,10 @@ namespace jQuery_File_Upload.MVC4.Upload
             //db.Thumbnails.Add(tn);
             //db.SaveChanges(); 
 
+            // in a controller we would probably use data binding
             if (context.Request.Form["uploadDestination"] != null)
             {
+                // this changes value of StorageRoot
                 GalleryDirectory = "~/" + context.Request.Form["uploadDestination"] + "/";
             }
             
@@ -148,24 +156,26 @@ namespace jQuery_File_Upload.MVC4.Upload
             {
                 var file = context.Request.Files[i];
 
-                var fullPath = Path.Combine(StorageRoot, Path.GetFileName(file.FileName));
+                var fullPath = 
+                    Path.Combine(StorageRoot, Path.GetFileName(file.FileName));
                 // hack using the file name to access the title field via the file name
                 var fileTitle = context.Request.Form[file.FileName.Replace(" ", "").Replace(".","")];
 
                 // the file title is a description
 
-                var img = new GalleryImage();
-                img.Filename = fullPath;
-                img.Title = fileTitle;
 
                 try
                 {
-
                     
-                    db.Images.Add(img);
-                    db.SaveChanges();
-
-                    file.SaveAs(fullPath);
+                    ImageProcessor ip = new ImageProcessor();
+                    OriginalImage img = new OriginalImage();
+                    img.Filename = fullPath;
+                    img.Title = fileTitle;
+                    // todo, put this saving into the image as I had a bug where no
+                    // files were saved because I omitted this step.
+                    file.SaveAs(img.Filename);                   
+                    ip.ProcessPostUpload(img);
+                                
 
                     string fullName = Path.GetFileName(file.FileName);
                     statuses.Add(new FilesStatus(fullName, file.ContentLength, fullPath));

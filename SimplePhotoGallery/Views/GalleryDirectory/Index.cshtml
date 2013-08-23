@@ -1,0 +1,17 @@
+﻿@model SimplePhotoGallery.Models.GalleryImage
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@{// get the directory
+  var rootDir = HttpContext.Current.Server.MapPath(@"~\");
+  foreach (var file in Directory.GetFiles(Path.Combine(rootDir, "GalleryImages")))
+  {
+      var img = "/GalleryImages/" + Path.GetFileName(file);
+      <img src="@img" />
+  }
+    
+}

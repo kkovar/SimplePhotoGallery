@@ -30,3 +30,5 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 Galleries
 SimplePhotoGallery/Views/UploadPictures/IndexOld.cshtml
+SimplePhotoGallery/GalleryImages/*.jpg
+SimplePhotoGallery/*.jpg

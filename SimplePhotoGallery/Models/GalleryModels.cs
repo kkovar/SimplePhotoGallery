@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 
 namespace SimplePhotoGallery.Models
 {
@@ -69,6 +70,17 @@ namespace SimplePhotoGallery.Models
 
         // note that we also have EXIF metadata that can be extracted
 
+        // this is maybe problematic since it ties this class to ScaledImage
+        public void AddThumbs(List<Thumbnail> thumbsToGenerate)
+        {
+            // get the standard thumbs
+            foreach (var th in thumbsToGenerate)
+            {
+                ScaledImage si = new ScaledImage(th, this);
+                si.Process();
+            }
+        }
+
     }
 
     // represents a image that has been altered, in this iteration it will be 
@@ -85,6 +97,11 @@ namespace SimplePhotoGallery.Models
     // as the original image should not depend on and have code for all image types
     public class ScaledImage : ProcessedImage
     {
+        // parameterless constructor for use with EF
+        public ScaledImage()
+        {
+        }
+
         public ScaledImage(Thumbnail thumbNail, GalleryImage baseImage)
         {
             BaseImage = baseImage;
@@ -98,6 +115,7 @@ namespace SimplePhotoGallery.Models
 
             try
             {
+                // this assumes that the parent image has saved itself
                 Image imgPhotoVert = Image.FromFile(this.BaseImage.Filename);
 
                 Image imgPhoto = ImageResize.ConstrainProportions(imgPhotoVert, Thumbnail.MaxWidth, ImageResize.Dimensions.Width);
@@ -118,6 +136,27 @@ namespace SimplePhotoGallery.Models
                 return ;
             }
         }        
+
+    }
+
+    // class to handle the image processing and persistence so the
+    // file uploader does not have to
+    // maybe should be a singleton?
+    public class ImageProcessor
+    {
+        private GalleryContext db = new GalleryContext();
+
+        public void ProcessPostUpload(OriginalImage img)
+        {
+            // right now, the thumbnail table contains only the
+            // thumbs I need, if that changes, use a new query
+            var thumbs = from th in db.Thumbnails select th;
+
+            img.AddThumbs(thumbs.ToList());
+            db.Images.Add(img);
+            db.SaveChanges();
+
+        }
 
     }
 

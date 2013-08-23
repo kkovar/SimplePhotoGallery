@@ -9,33 +9,33 @@ using SimplePhotoGallery.Models;
 
 namespace SimplePhotoGallery.Controllers
 {
-    public class GalleryManagementController : Controller
+    public class ArtistManagementController : Controller
     {
         private GalleryContext db = new GalleryContext();
 
         //
-        // GET: /GalleryManagement/
+        // GET: /ArtistManagement/
 
         public ActionResult Index()
         {
-            return View(db.Galleries.ToList());
+            return View(db.Artists.ToList());
         }
 
         //
-        // GET: /GalleryManagement/Details/5
+        // GET: /ArtistManagement/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Gallery gallery = db.Galleries.Find(id);
-            if (gallery == null)
+            Artist artist = db.Artists.Find(id);
+            if (artist == null)
             {
                 return HttpNotFound();
             }
-            return View(gallery);
+            return View(artist);
         }
 
         //
-        // GET: /GalleryManagement/Create
+        // GET: /ArtistManagement/Create
 
         public ActionResult Create()
         {
@@ -43,73 +43,73 @@ namespace SimplePhotoGallery.Controllers
         }
 
         //
-        // POST: /GalleryManagement/Create
+        // POST: /ArtistManagement/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Gallery gallery)
+        public ActionResult Create(Artist artist)
         {
             if (ModelState.IsValid)
             {
-                db.Galleries.Add(gallery);
+                db.Artists.Add(artist);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(gallery);
+            return View(artist);
         }
 
         //
-        // GET: /GalleryManagement/Edit/5
+        // GET: /ArtistManagement/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Gallery gallery = db.Galleries.Find(id);
-            if (gallery == null)
+            Artist artist = db.Artists.Find(id);
+            if (artist == null)
             {
                 return HttpNotFound();
             }
-            return View(gallery);
+            return View(artist);
         }
 
         //
-        // POST: /GalleryManagement/Edit/5
+        // POST: /ArtistManagement/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Gallery gallery)
+        public ActionResult Edit(Artist artist)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(gallery).State = EntityState.Modified;
+                db.Entry(artist).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(gallery);
+            return View(artist);
         }
 
         //
-        // GET: /GalleryManagement/Delete/5
+        // GET: /ArtistManagement/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Gallery gallery = db.Galleries.Find(id);
-            if (gallery == null)
+            Artist artist = db.Artists.Find(id);
+            if (artist == null)
             {
                 return HttpNotFound();
             }
-            return View(gallery);
+            return View(artist);
         }
 
         //
-        // POST: /GalleryManagement/Delete/5
+        // POST: /ArtistManagement/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Gallery gallery = db.Galleries.Find(id);
-            db.Galleries.Remove(gallery);
+            Artist artist = db.Artists.Find(id);
+            db.Artists.Remove(artist);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -49,6 +49,7 @@ namespace SimplePhotoGallery.Tests.Utilities
         [TestMethod]
         public void SetupThumbnails()
         {
+
             var db = new GalleryContext();
 
             //db.Thumbnails.Where(t => t.Description == "medium");
@@ -102,6 +103,46 @@ namespace SimplePhotoGallery.Tests.Utilities
 
             //var testMasterImage = images.First();
           
+
+
+        }
+
+        [TestMethod]
+        public void TestImageProcessor()
+        {
+            
+            ImageProcessor ip = new ImageProcessor();
+            OriginalImage img = new OriginalImage();
+            img.Filename = @"C:\Users\Ken\Documents\GitHub\SimplePhotoGallery\SimplePhotoGallery\Galleries\Canon1IMG_0050.JPG";
+            img.Title = "Renee smiling";
+            ip.ProcessPostUpload(img);
+            
+             
+            
+            // now we should test that we have four thumbnails:
+            // large, medium, small and tiny
+            GalleryContext db = new GalleryContext();
+            
+            var originalImage = db.Images.ToList();
+                        // .Where(b => b.Title.Contains("James")).ToList();
+
+            /*
+                        .FirstOrDefault();
+             *                         .Include("ProcessedImages")
+
+            */
+
+
+            foreach (var processedImage in originalImage)
+            {
+                var fn = processedImage.Filename;
+            }
+                
+                //from i in db.Images.Include(ProcessedImages) where i.Title.Contains("James") select i;
+            //foreach
+
+                //var blog1 = context.Blogs
+  
 
 
         }
