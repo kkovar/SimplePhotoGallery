@@ -27,4 +27,4 @@ $(function () {
         });
 });
 
-alert("data is " + $('body').data("pictureRow"));
+// alert("data is " + $('body').data("pictureRow"));
