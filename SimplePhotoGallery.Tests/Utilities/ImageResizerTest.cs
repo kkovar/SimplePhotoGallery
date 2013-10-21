@@ -107,6 +107,13 @@ namespace SimplePhotoGallery.Tests.Utilities
 
         }
 
+
+        [TestMethod]
+        public void GetAllImages()
+        {
+            GalleryContext db = new GalleryContext();
+            var allImages = db.Images.ToList();
+        }
         [TestMethod]
         public void TestImageProcessor()
         {

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using SimplePhotoGallery.Models;
 using System;
+using System.Configuration;
 
 namespace jQuery_File_Upload.MVC4.Upload
 {
@@ -146,17 +147,22 @@ namespace jQuery_File_Upload.MVC4.Upload
             //db.SaveChanges(); 
 
             // in a controller we would probably use data binding
-            if (context.Request.Form["uploadDestination"] != null)
+            if (context.Request.Form["uploadDestination"] != "")
             {
                 // this changes value of StorageRoot
                 GalleryDirectory = "~/" + context.Request.Form["uploadDestination"] + "/";
+            }
+            else
+            {
+                GalleryDirectory = "~/" + ConfigurationManager.AppSettings["uploadDestination"] + "/";
             }
             
             for (int i = 0; i < context.Request.Files.Count; i++)
             {
                 var file = context.Request.Files[i];
 
-                var fullPath = 
+                // todo, see if this is really the right approach
+                var fullPath =
                     Path.Combine(StorageRoot, Path.GetFileName(file.FileName));
                 // hack using the file name to access the title field via the file name
                 var fileTitle = context.Request.Form[file.FileName.Replace(" ", "").Replace(".","")];
