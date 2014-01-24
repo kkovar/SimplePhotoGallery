@@ -17,7 +17,7 @@ namespace jQuery_File_Upload.MVC4.Upload
         private GalleryContext db = new GalleryContext();
         private readonly JavaScriptSerializer js;
 
-        // this should be in the image manager
+        // this should be in the image manager controller or maybe at the site level
         private string GalleryDirectory = "~/GalleryImages/";
 
         // todo, make the uploader work with a user specified or "Current" gallery
@@ -173,10 +173,12 @@ namespace jQuery_File_Upload.MVC4.Upload
                 try
                 {
                     
-                    ImageProcessor ip = new ImageProcessor();
+                    GalleryImageProcessor ip = new GalleryImageProcessor();
                     OriginalImage img = new OriginalImage();
                     img.Filename = fullPath;
                     img.Title = fileTitle;
+                    // todo, see if there are better ways of generating this url
+                    img.UrlPath = GalleryDirectory + "/" + Path.GetFileName(file.FileName);
                     // todo, put this saving into the image as I had a bug where no
                     // files were saved because I omitted this step.
                     file.SaveAs(img.Filename);                   

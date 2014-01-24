@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using SimplePhotoGallery.Models;
 using System.Linq;
+using System.IO;
 
 namespace SimplePhotoGallery.Tests.Utilities
 {
@@ -23,23 +24,23 @@ namespace SimplePhotoGallery.Tests.Utilities
             Image imgPhotoHoriz = Image.FromFile(WorkingDirectory + @"\imageresize_horiz.jpg");
             Image imgPhoto = null;
 
-            imgPhoto = ImageResize.ScaleByPercent(imgPhotoVert, 50);
+            imgPhoto = ImageProcessor.ScaleByPercent(imgPhotoVert, 50);
             imgPhoto.Save(WorkingDirectory + @"\images\imageresize_1.jpg", ImageFormat.Jpeg);
             imgPhoto.Dispose();
 
-            imgPhoto = ImageResize.ConstrainProportions(imgPhotoVert, 200, ImageResize.Dimensions.Width);
+            imgPhoto = ImageProcessor.ConstrainProportions(imgPhotoVert, 200, ImageProcessor.Dimensions.Width);
             imgPhoto.Save(WorkingDirectory + @"\images\imageresize_2.jpg", ImageFormat.Jpeg);
             imgPhoto.Dispose();
 
-            imgPhoto = ImageResize.FixedSize(imgPhotoVert, 200, 200);
+            imgPhoto = ImageProcessor.FixedSize(imgPhotoVert, 200, 200);
             imgPhoto.Save(WorkingDirectory + @"\images\imageresize_3.jpg", ImageFormat.Jpeg);
             imgPhoto.Dispose();
 
-            imgPhoto = ImageResize.Crop(imgPhotoVert, 200, 200, ImageResize.AnchorPosition.Center);
+            imgPhoto = ImageProcessor.Crop(imgPhotoVert, 200, 200, ImageProcessor.AnchorPosition.Center);
             imgPhoto.Save(WorkingDirectory + @"\images\imageresize_4.jpg", ImageFormat.Jpeg);
             imgPhoto.Dispose();
 
-            imgPhoto = ImageResize.Crop(imgPhotoHoriz, 200, 200, ImageResize.AnchorPosition.Center);
+            imgPhoto = ImageProcessor.Crop(imgPhotoHoriz, 200, 200, ImageProcessor.AnchorPosition.Center);
             imgPhoto.Save(WorkingDirectory + @"\images\imageresize_5.jpg", ImageFormat.Jpeg);
             imgPhoto.Dispose();
 
@@ -107,18 +108,60 @@ namespace SimplePhotoGallery.Tests.Utilities
 
         }
 
+        [TestMethod]
+        public void ShowRotateForm()
+        {
+            var f = new Form1();
+
+            f.ShowDialog();
+        }
+
+        [TestMethod]
+        public void RotateImage()
+        {
+            // take an image file and create a new file that is rotated by 90
+            float angle = 90;
+            //create a image object containing a vertical photograph
+            Image imgPhotoToRotate = Image.FromFile(@"C:\Users\Ken\Documents\GitHub\simplePGClone\SimplePhotoGallery\SimplePhotoGallery\GalleryImages\dsc_0348.jpg");
+
+            Image imgPhoto = ImageProcessor.RotateImage(imgPhotoToRotate, angle);
+            imgPhoto.Save(@"C:\Users\Ken\Documents\GitHub\simplePGClone\SimplePhotoGallery\SimplePhotoGallery\GalleryImages\dsc_0348rotated.jpg", ImageFormat.Jpeg);
+            imgPhoto.Dispose();
+
+ 
+                 
+        }
 
         [TestMethod]
         public void GetAllImages()
         {
             GalleryContext db = new GalleryContext();
             var allImages = db.Images.ToList();
+
         }
+
+        [TestMethod]
+        public void GetOriginalImages()
+        {
+            GalleryContext db = new GalleryContext();
+            // get the original images
+            // var allImages = db.Images.Where(img => img is ProcessedImage);
+
+            var originals = from oi in db.Images.Include("ProcessedImages") where oi is OriginalImage select oi ;
+
+            foreach (var orig in originals)
+            {
+            }
+            // we will foreach 
+        }
+
+
+
         [TestMethod]
         public void TestImageProcessor()
         {
             
-            ImageProcessor ip = new ImageProcessor();
+            var ip = new GalleryImageProcessor();
             OriginalImage img = new OriginalImage();
             img.Filename = @"C:\Users\Ken\Documents\GitHub\SimplePhotoGallery\SimplePhotoGallery\Galleries\Canon1IMG_0050.JPG";
             img.Title = "Renee smiling";
@@ -145,14 +188,24 @@ namespace SimplePhotoGallery.Tests.Utilities
                 var fn = processedImage.Filename;
             }
                 
-                //from i in db.Images.Include(ProcessedImages) where i.Title.Contains("James") select i;
-            //foreach
-
-                //var blog1 = context.Blogs
-  
-
-
         }
 
+
+        // ad hoc method to put url in the images
+        [TestMethod]
+        public void UpdateURLsInImages()
+        {
+            GalleryContext db = new GalleryContext();
+            foreach (var img in db.Images)
+            {
+                img.UrlPath = "~/GalleryImages/" + Path.GetFileName(img.Filename);
+                foreach (var thumb in img.ProcessedImages)
+                {
+                    thumb.UrlPath = "~/GalleryImages/" + Path.GetFileName(thumb.Filename);
+                }
+            }
+            db.SaveChanges();
+
+        }
     }
 }

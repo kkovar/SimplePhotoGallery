@@ -38,13 +38,16 @@ namespace SimplePhotoGallery.Models
         // longer description or critical note
         public string Commentary { get; set; }
  
-        // any scaled, enhanced, colorized images based on this image
-        public List<ProcessedImage> ProcessedImages  { get; set; }
+        // foreign key to self
+        public int ProcessedImagesGalleryImageId;
+        // navigation property to any scaled, enhanced, colorized images based on this image
+        public virtual ICollection<ProcessedImage> ProcessedImages  { get; set; }
  
+        // the path to use in the url
+        public string UrlPath { get; set; }
         
 
-
-        // navigation property to garlleries which it belongs to
+        // navigation property to galleries which it belongs to
         public List<Gallery> Galleries { get; set; }
 
         public GalleryImage(GalleryImage rhs) 
@@ -58,6 +61,23 @@ namespace SimplePhotoGallery.Models
 
     }
 
+    /// problem with design:
+    /// the base class contains fields like commentary that should apply to the image as
+    /// a photo that was taken with some intent by the photographer
+    /// the processed images are not created with the same intent, they are just copies that
+    /// exist only to provide an alternative representation to enhance display
+    /// One alternative might be to have a set of processing objects that can be associated with
+    /// an image. These would be able to generate/retrieve an altered image based on a specified
+    /// transformation. This way the processed images would not have the creation specific attributes 
+    /// like location, subject, and comments/observations/motivations from the photographer 
+    /// of the original image.
+    /// The OriginalImage class does have some of this separation of concerns but having a class to 
+    /// represent processing as opposed to creation would be very useful and introduces a
+    /// decoupling that would let us to have an unlimited set of derived images based on the 
+    /// original without the constraints of classes like scaledImage, etc.
+    /// 
+
+
     public class OriginalImage : GalleryImage
     {
         // fields to help filter/organize into galleries.
@@ -70,7 +90,8 @@ namespace SimplePhotoGallery.Models
 
         // note that we also have EXIF metadata that can be extracted
 
-        // this is maybe problematic since it ties this class to ScaledImage
+        // this is problematic since it ties this class to ScaledImage
+        // 
         public void AddThumbs(List<Thumbnail> thumbsToGenerate)
         {
             // get the standard thumbs
@@ -81,12 +102,39 @@ namespace SimplePhotoGallery.Models
             }
         }
 
+        public void RotateSelfAndThumbs(float angle = 90)
+        {
+            // take an image file and create a new file that is rotated by 90
+
+            // todo: create a new file and update the file name
+            Image imgPhotoToRotate = Image.FromFile(Filename);
+            
+            Image imgPhoto = ImageProcessor.RotateImage(imgPhotoToRotate, angle);
+            imgPhotoToRotate.Dispose();
+            imgPhoto.Save(Filename, ImageFormat.Jpeg);
+            foreach (var thumb in ProcessedImages)
+            {
+                imgPhotoToRotate = Image.FromFile(thumb.Filename);
+                imgPhoto = ImageProcessor.RotateImage(imgPhotoToRotate, angle);
+                imgPhotoToRotate.Dispose();
+                imgPhoto.Save(thumb.Filename, ImageFormat.Jpeg);
+            }
+            // imgPhoto.Dispose();
+
+
+
+        }
+
+
     }
 
     // represents a image that has been altered, in this iteration it will be 
     // scaling to the appropriate thumbnail size
     public abstract class ProcessedImage : GalleryImage
     {
+        // foreign key (to base image in GalleryImage table)
+        public int BaseImageId;
+        // navigation property to base image
         public virtual GalleryImage BaseImage { get; set; }
         // override to provide image manipulation
         public abstract void Process() ;
@@ -118,7 +166,7 @@ namespace SimplePhotoGallery.Models
                 // this assumes that the parent image has saved itself
                 Image imgPhotoVert = Image.FromFile(this.BaseImage.Filename);
 
-                Image imgPhoto = ImageResize.ConstrainProportions(imgPhotoVert, Thumbnail.MaxWidth, ImageResize.Dimensions.Width);
+                Image imgPhoto = ImageProcessor.ConstrainProportions(imgPhotoVert, Thumbnail.MaxWidth, ImageProcessor.Dimensions.Width);
 
                 // todo: give user a way to specify an alternative file name for the thumb
                 Filename =  Path.Combine(Path.GetDirectoryName(BaseImage.Filename),( Path.GetFileNameWithoutExtension(BaseImage.Filename) + "_" + Thumbnail.Description + Path.GetExtension(BaseImage.Filename)));
@@ -142,7 +190,7 @@ namespace SimplePhotoGallery.Models
     // class to handle the image processing and persistence so the
     // file uploader does not have to
     // maybe should be a singleton?
-    public class ImageProcessor
+    public class GalleryImageProcessor
     {
         private GalleryContext db = new GalleryContext();
 
@@ -163,6 +211,7 @@ namespace SimplePhotoGallery.Models
     public class Artist
     {
         public int ArtistId { get; set; }
+        public string Name { get; set; }
         // navigation property to the galleries that
         public List<Gallery> Galleries { get; set; }
         public string ArtistsStatement { get; set; }
@@ -179,6 +228,7 @@ namespace SimplePhotoGallery.Models
     public class Gallery
     {
         public int GalleryId { get; set; }
+        public string Name { get; set; }
         // navigation property to the images
         public List<GalleryImage> Images { get; set; }
         // n

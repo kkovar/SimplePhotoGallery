@@ -39,6 +39,9 @@ namespace SimplePhotoGallery.Controllers
 
         public ActionResult Create()
         {
+            // build a list of artists that can own this gallery
+            ViewBag.Artists = new SelectList(db.Artists, "ArtistId", "Name");
+
             return View();
         }
 
