@@ -32,3 +32,4 @@ Galleries
 SimplePhotoGallery/Views/UploadPictures/IndexOld.cshtml
 SimplePhotoGallery/GalleryImages/*.jpg
 SimplePhotoGallery/*.jpg
+Packages/

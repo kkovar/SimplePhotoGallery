@@ -1,0 +1,21 @@
+﻿I can upload to a gallery directory with the desired resized images.
+1. Display all of the images not in a gallery on a page with a dropdown next to each image that specifies what g
+gallery the image should go into. If the user picks a gallery that does not exist, create the gallery and add it 
+to the other dropdowns. There will be a master dropdown that will allow all unassigned pictures to be put into a 
+gallery, and an ok button to confirm the user's choice. This view will be called GalleryAssignment. The new
+gallery will appear on the GalleryDirectory page, which will be shown after the user confirms that they are
+done with assigning the pictures. So the controller will have the following:
+Initialize - get all unassigned images and tell the view to display them.
+AddImageToGallery - image will be associated with a gallery
+
+
+View will have the following: AddImage, SetGalleryLists (will populate all the dropdowns)
+SetMasterGallery (will change all dropdowns that have not been preset)
+
+Nice to have: more than one gallery per image. ui indication that an image has been assigned to a gallery.
+Simplest would be that the dropdown is populated
+
+2. The gallery will have around 10-30 images in one or more rows of thumbs and a large image for
+the currently selected image in the thumbs.
+
+322%Mammal3

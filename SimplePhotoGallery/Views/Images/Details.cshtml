@@ -1,0 +1,36 @@
+﻿@model SimplePhotoGallery.Models.GalleryImage
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>GalleryImage</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Filename)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Filename)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Commentary)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Commentary)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.GalleryImageId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

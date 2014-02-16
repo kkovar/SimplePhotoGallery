@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SimplePhotoGallery.AuthConfig" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\AuthConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.BundleConfig" Collapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\BundleConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.FilterConfig" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\FilterConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.RouteConfig" Collapsed="true">
+    <Position X="12.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.WebApiConfig" Collapsed="true">
+    <Position X="10.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\WebApiConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.MvcApplication" Collapsed="true">
+    <Position X="15.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAIQAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Controllers.AccountController" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAAAAAgAAEAACAAAAAAAABCAAAAAAQAAQAIAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Controllers.ArtistManagementController" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ArtistManagementController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Controllers.GalleryController" Collapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\GalleryController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Controllers.GalleryDirectoryController" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\GalleryDirectoryController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Controllers.GalleryManagementController" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\GalleryManagementController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Controllers.HomeController" Collapsed="true">
+    <Position X="7" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEACAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Controllers.ImagesController" Collapsed="true">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ImagesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Controllers.ThumbnailController" Collapsed="true">
+    <Position X="15.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ThumbnailController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Controllers.UploadPicturesController" Collapsed="true">
+    <Position X="7" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAEAAACQAAUAQAAAAAA=</HashCode>
+      <FileName>Controllers\UploadPicturesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Controllers.ViewDataUploadFilesResult" Collapsed="true">
+    <Position X="8.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAEAAAABANAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Controllers\UploadPicturesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Migrations.InitialMigration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
+      <FileName>Migrations\201305051748174_InitialMigration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimplePhotoGallery.Migrations.AddArtistAndImageParent" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
+      <FileName>Migrations\201306301656446_AddArtistAndImageParent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimplePhotoGallery.Migrations.RefineGalleryImage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
+      <FileName>Migrations\201307071233534_RefineGalleryImage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimplePhotoGallery.Migrations.RedoImageHierarchy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
+      <FileName>Migrations\201307170500349_RedoImageHierarchy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimplePhotoGallery.Migrations.convertICollectionToList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
+      <FileName>Migrations\201307211424218_convertICollectionToList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimplePhotoGallery.Migrations.removeVirtualCollection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
+      <FileName>Migrations\201307211445100_removeVirtualCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimplePhotoGallery.Migrations.addArtistName" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
+      <FileName>Migrations\201311251316553_addArtistName.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimplePhotoGallery.Migrations.AddGalleryName" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
+      <FileName>Migrations\201312071439231_AddGalleryName.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimplePhotoGallery.Migrations.AddURLToGalleryImage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
+      <FileName>Migrations\201312140601347_AddURLToGalleryImage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimplePhotoGallery.Migrations.addProcessedImageNavigation" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAMAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAI=</HashCode>
+      <FileName>Migrations\201312180238139_addProcessedImageNavigation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimplePhotoGallery.Migrations.Configuration" Collapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Migrations\Configuration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.ChangePasswordModel" Collapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAEAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Models\AccountModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.LoginModel" Collapsed="true">
+    <Position X="14" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAgAAA=</HashCode>
+      <FileName>Models\AccountModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.RegisterModel" Collapsed="true">
+    <Position X="8.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAQAAAAAAIAA=</HashCode>
+      <FileName>Models\AccountModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.Thumbnail" Collapsed="true">
+    <Position X="14" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBA=</HashCode>
+      <FileName>Models\GalleryModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.GalleryImage" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAQAQEAAABAAAAAAAAgAAEAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Models\GalleryModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.OriginalImage" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIIQAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GalleryModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.ProcessedImage" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Models\GalleryModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.ScaledImage" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GalleryModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.GalleryImageProcessor" Collapsed="true">
+    <Position X="15.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GalleryModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.Artist" Collapsed="true">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIOAAAEAQAAAoAAAACAAAAIAAAAAA=</HashCode>
+      <FileName>Models\GalleryModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.Gallery" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAgAAAAEAAAAAQAAIAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GalleryModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Models.GalleryContext" Collapsed="true">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAABAAAEAQAAAAAAA=</HashCode>
+      <FileName>Models\GalleryModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="jQuery_File_Upload.MVC4.Upload.FilesStatus" Collapsed="true">
+    <Position X="15.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAAAAAAQAAAAoAAAIEAEAAAABANAYAAAIAAAAAACAA=</HashCode>
+      <FileName>Upload\FilesStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="jQuery_File_Upload.MVC4.Upload.UploadHandler" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAQAARAAQIAAAABAAAAAAAAAAEADQCAUAAAAAQQA=</HashCode>
+      <FileName>Upload\UploadHandler.ashx.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimplePhotoGallery.Utilities.Form1" Collapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQCCAEBAAAACAAAACACABQAAAAAAABABAAAA=</HashCode>
+      <FileName>Utilities\Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimplePhotoGallery.Utilities.ImageProcessor" Collapsed="true">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAQAAAAAAAAAAAAAAAAAAAAAAgAAACAAAEAAAAA=</HashCode>
+      <FileName>Utilities\ImageResizer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
