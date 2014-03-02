@@ -13,6 +13,13 @@ namespace SimplePhotoGallery
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // when I specify a path of "/Images/" the action Index is not
+            // appended.
+            routes.MapRoute(
+                name: "ImageRoute",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Images", action = "Index", id = UrlParameter.Optional }
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

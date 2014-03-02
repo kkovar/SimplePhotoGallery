@@ -198,6 +198,7 @@ namespace SimplePhotoGallery.Models
         {
             // right now, the thumbnail table contains only the
             // thumbs I need, if that changes, use a new query
+            // todo: improve the extensibility of this-- it is tied to the database
             var thumbs = from th in db.Thumbnails select th;
 
             img.AddThumbs(thumbs.ToList());
@@ -210,6 +211,10 @@ namespace SimplePhotoGallery.Models
 
     public class Artist
     {
+        public Artist()
+        {
+            Galleries = new List<Gallery>();
+        }
         public int ArtistId { get; set; }
         public string Name { get; set; }
         // navigation property to the galleries that
@@ -227,6 +232,10 @@ namespace SimplePhotoGallery.Models
     }
     public class Gallery
     {
+        public Gallery()
+        {
+            Images = new List<GalleryImage>();
+        }
         public int GalleryId { get; set; }
         public string Name { get; set; }
         // navigation property to the images

@@ -16,14 +16,33 @@ namespace SimplePhotoGallery.Controllers
 
         //
         // GET: /Images/
-
+        // todo 2/26/14 determine if this is needed
         [OutputCache(Duration = 1, VaryByParam = "none")]
         public ActionResult Index()
         {
             // select only the images that have not been assigned to galleries
             //  Where(i => (i.Galleries == null))
-            return View(db.Images.ToList());
+            //  todo, improve the model
+
+            // note that the Include call populates the Galleries member, if left off, Galleries.Count is 0
+            // example: http://stackoverflow.com/questions/19131306/populating-navigation-properties-of-navigation-properties
+            var unassigned = db.Images.Include(img => img.Galleries).ToArray();
+
+            var originals = unassigned.Where(img => (img is OriginalImage && img.Galleries.Count == 0));
+                
+            var galleries = 
+                new SelectList(db.Galleries.ToArray().Select(x => new {value = x.GalleryId, text = x.Name}), 
+                "value", "text", "");
+
+            //var galleryList = db.Galleries.
+
+            ViewBag.galleries = galleries;
+            //    .Where();
+            return View(originals);
         }
+
+        // PUT: /Images/Index
+
 
         //
         // GET: /Images/Details/5
@@ -57,7 +76,7 @@ namespace SimplePhotoGallery.Controllers
             {
                 db.Images.Add(galleryimage);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Images");
             }
 
             return View(galleryimage);
@@ -82,7 +101,7 @@ namespace SimplePhotoGallery.Controllers
         // POST: /Images/Edit/5
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        // todo, restore this when I put this token in the assign gallery form: [ValidateAntiForgeryToken]
         public ActionResult Edit(GalleryImage galleryimage)
         {
             if (ModelState.IsValid)
@@ -92,6 +111,32 @@ namespace SimplePhotoGallery.Controllers
                 return RedirectToAction("Index");
             }
             return View(galleryimage);
+        }
+        [HttpPost]
+        // todo, restore this when I put this token in the assign gallery form: [ValidateAntiForgeryToken]
+        public ActionResult AddGallery(int id = 0)
+        {
+            GalleryImage galleryimage = db.Images.Find(id);
+            if (galleryimage == null)
+            {
+                return HttpNotFound();
+            }
+ 
+            var galleryId = int.Parse(Request.Form["gallery"]);
+            if (galleryId != null)
+            {
+                var gallery = db.Galleries.Find(galleryId);
+                if (gallery != null && ModelState.IsValid)
+                {
+                    galleryimage.Galleries.Add(gallery);
+                    gallery.Images.Add(galleryimage);
+                    db.Entry(galleryimage).State = EntityState.Modified;
+                    db.Entry(gallery).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         //

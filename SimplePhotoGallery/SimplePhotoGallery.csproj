@@ -62,6 +62,9 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RouteDebugger">
+      <HintPath>..\packages\routedebugger.2.1.4.0\lib\net40\RouteDebugger.dll</HintPath>
+    </Reference>
     <Reference Include="Sprockets">
       <HintPath>..\packages\Sprockets.0.3.0\lib\net40-Client\Sprockets.dll</HintPath>
     </Reference>
@@ -298,18 +301,18 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\AjaxLogin.js" />
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\aspNetHome.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\facebook.png" />
-    <Content Include="Images\findHosting.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\NuGetGallery.png" />
-    <Content Include="Images\orderedListOne.png" />
-    <Content Include="Images\orderedListTwo.png" />
-    <Content Include="Images\orderedListThree.png" />
-    <Content Include="Images\twitter.png" />
-    <Content Include="Images\windowsLive.png" />
+    <Content Include="Content\Images\accent.png" />
+    <Content Include="Content\Images\aspNetHome.png" />
+    <Content Include="Content\Images\bullet.png" />
+    <Content Include="Content\Images\facebook.png" />
+    <Content Include="Content\Images\findHosting.png" />
+    <Content Include="Content\Images\heroAccent.png" />
+    <Content Include="Content\Images\NuGetGallery.png" />
+    <Content Include="Content\Images\orderedListOne.png" />
+    <Content Include="Content\Images\orderedListTwo.png" />
+    <Content Include="Content\Images\orderedListThree.png" />
+    <Content Include="Content\Images\twitter.png" />
+    <Content Include="Content\Images\windowsLive.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
@@ -321,7 +324,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\UploadPictures\Index3.cshtml" />
     <Content Include="Views\UploadPictures\MakeGallery.cshtml" />
     <Content Include="Views\Thumbnail\Index.cshtml" />
@@ -431,8 +436,8 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>59909</DevelopmentServerPort>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>65174</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:65174/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

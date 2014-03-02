@@ -6,6 +6,9 @@ using System.Drawing.Imaging;
 using SimplePhotoGallery.Models;
 using System.Linq;
 using System.IO;
+using System.Web.Mvc;
+using System.Data.Entity;
+
 
 namespace SimplePhotoGallery.Tests.Utilities
 {
@@ -205,6 +208,40 @@ namespace SimplePhotoGallery.Tests.Utilities
                 }
             }
             db.SaveChanges();
+
+        }
+
+        [TestMethod]
+        public void AddImageToGallery()
+        {
+
+            GalleryContext db = new GalleryContext();
+            var unassigned = db.Images.Include(img => img.Galleries).ToArray();
+
+            var originals = unassigned.Where(img => (img is OriginalImage && img.Galleries.Count == 0));
+
+            // hard code value, take third image
+            var galleryimage = originals.ElementAt(3);
+
+            //var galleries =
+            //    new SelectList(db.Galleries.ToArray().Select(x => new { value = x.GalleryId, text = x.Name }),
+            //    "value", "text", "");
+
+            // hard coded value
+            var galleryId = 2;
+            if (galleryId != null)
+            {
+                var gallery = db.Galleries.Find(galleryId);
+                if (gallery != null)
+                {
+                    galleryimage.Galleries.Add(gallery);
+                    gallery.Images.Add(galleryimage);
+                    db.Entry(galleryimage).State = EntityState.Modified;
+                    db.Entry(gallery).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            originals = unassigned.Where(img => (img is OriginalImage && img.Galleries.Count == 0));
 
         }
     }

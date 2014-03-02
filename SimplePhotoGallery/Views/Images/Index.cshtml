@@ -78,9 +78,11 @@
             @Html.DisplayNameFor(model => model.Commentary)
         </th>
         <th>Image</th>
+        <th>Gallery</th>
     </tr>
 
 @foreach (var item in Model) {
+    
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
@@ -91,14 +93,34 @@
         <td class="image">
             @{
                 // convert from relative url ~/ to path
-                var url = Url.Content(item.UrlPath);
+                // img;
+                var scaled = item.ProcessedImages.ToArray();
+        
+                var medThumb = scaled.Where(img => (img as SimplePhotoGallery.Models.ScaledImage).Thumbnail.Description == "medium").FirstOrDefault();
+                string url;
+                if (medThumb != null)
+                {
+                    url = Url.Content(medThumb.UrlPath);
+                }
+                else
+                {
+                    // mo medium thumb available, use original image
+                    url = Url.Content(item.UrlPath);
+                }
+                
             }
-            <img width="200px" src="@url" />
+            <img width="300" src="@url" />
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.GalleryImageId }, new { @class="btn" })
-            @Html.ActionLink("Details", "Details", new { id=item.GalleryImageId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.GalleryImageId })
+            @Html.ActionLink("Details", "Details", new { id = item.GalleryImageId }, new { @class = "btn" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.GalleryImageId }, new { @class = "btn" })
+        </td>
+        <td>
+            <form action="/Images/AddGallery/@item.GalleryImageId" method="post">
+                @Html.DropDownList("gallery", (IEnumerable<SelectListItem>)ViewBag.galleries)
+                <input type="submit" value="AssignToGallery"/>
+            </form>
         </td>
     </tr>
 }
