@@ -265,6 +265,7 @@
     <Content Include="GalleryImages\DSC_0237.JPG" />
     <Content Include="GalleryImages\DSC_0334.JPG" />
     <Content Include="GalleryImages\DSC_0335.JPG" />
+    <Content Include="GalleryImages\GalleryMockup.html" />
     <Content Include="GalleryImages\IMG_0006.JPG" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
