@@ -172,21 +172,20 @@ namespace jQuery_File_Upload.MVC4.Upload
 
                 try
                 {
-                    
-                    GalleryImageProcessor ip = new GalleryImageProcessor();
-                    OriginalImage img = new OriginalImage();
-                    img.Filename = fullPath;
-                    img.Title = fileTitle;
-                    // todo, see if there are better ways of generating this url
-                    img.UrlPath = GalleryDirectory + "/" + Path.GetFileName(file.FileName);
-                    // todo, put this saving into the image as I had a bug where no
-                    // files were saved because I omitted this step.
-                    file.SaveAs(img.Filename);                   
-                    ip.ProcessPostUpload(img);
-                                
+                       GalleryImageProcessor ip = new GalleryImageProcessor();
+                        OriginalImage img = new OriginalImage();
+                        img.Filename = fullPath;
+                        img.Title = fileTitle;
+                        // todo, see if there are better ways of generating this url
+                        img.UrlPath = GalleryDirectory + "/" + Path.GetFileName(file.FileName);
+                        // todo, put this saving into the image as I had a bug where no
+                        // files were saved because I omitted this step.
+                        file.SaveAs(img.Filename);
+                        ip.ProcessPostUpload(img);
 
-                    string fullName = Path.GetFileName(file.FileName);
-                    statuses.Add(new FilesStatus(fullName, file.ContentLength, fullPath));
+
+                        string fullName = Path.GetFileName(file.FileName);
+                        statuses.Add(new FilesStatus(fullName, file.ContentLength, fullPath));
                 }
                 catch (Exception e)
                 {

@@ -41,6 +41,29 @@ namespace SimplePhotoGallery.Controllers
             return View(originals);
         }
 
+        public ActionResult IndexAll()
+        {
+            // select only the images that have not been assigned to galleries
+            //  Where(i => (i.Galleries == null))
+            //  todo, improve the model
+
+            // note that the Include call populates the Galleries member, if left off, Galleries.Count is 0
+            // example: http://stackoverflow.com/questions/19131306/populating-navigation-properties-of-navigation-properties
+            var unassigned = db.Images.Include(img => img.Galleries).ToArray();
+
+            var originals = unassigned.Where(img => (img is OriginalImage));
+
+            var galleries =
+                new SelectList(db.Galleries.ToArray().Select(x => new { value = x.GalleryId, text = x.Name }),
+                "value", "text", "");
+
+            //var galleryList = db.Galleries.
+
+            ViewBag.galleries = galleries;
+            //    .Where();
+            return View("Index", originals);
+        }
+
         // PUT: /Images/Index
 
 

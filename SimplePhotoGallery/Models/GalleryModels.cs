@@ -145,6 +145,7 @@ namespace SimplePhotoGallery.Models
     // as the original image should not depend on and have code for all image types
     public class ScaledImage : ProcessedImage
     {
+        private Object myLock = new object();
         // parameterless constructor for use with EF
         public ScaledImage()
         {
@@ -163,20 +164,24 @@ namespace SimplePhotoGallery.Models
 
             try
             {
-                // this assumes that the parent image has saved itself
-                Image imgPhotoVert = Image.FromFile(this.BaseImage.Filename);
+                //lock (myLock)
+                //{
 
-                Image imgPhoto = ImageProcessor.ConstrainProportions(imgPhotoVert, Thumbnail.MaxWidth, ImageProcessor.Dimensions.Width);
+                    // this assumes that the parent image has saved itself
+                    Image imgPhotoVert = Image.FromFile(this.BaseImage.Filename);
 
-                // todo: give user a way to specify an alternative file name for the thumb
-                Filename =  Path.Combine(Path.GetDirectoryName(BaseImage.Filename),( Path.GetFileNameWithoutExtension(BaseImage.Filename) + "_" + Thumbnail.Description + Path.GetExtension(BaseImage.Filename)));
+                    Image imgPhoto = ImageProcessor.ConstrainProportions(imgPhotoVert, Thumbnail.MaxWidth, ImageProcessor.Dimensions.Width);
+                    imgPhotoVert.Dispose();
+
+                    // todo: give user a way to specify an alternative file name for the thumb
+                    Filename = Path.Combine(Path.GetDirectoryName(BaseImage.Filename), (Path.GetFileNameWithoutExtension(BaseImage.Filename) + "_" + Thumbnail.Description + Path.GetExtension(BaseImage.Filename)));
 
 
-                imgPhoto.Save(Filename, ImageFormat.Jpeg);
-                imgPhoto.Dispose();
-                // todo, test that thumbnail images have a column that contains a parent image id
-                BaseImage.ProcessedImages.Add(this);
-
+                    imgPhoto.Save(Filename, ImageFormat.Jpeg);
+                    imgPhoto.Dispose();
+                    // todo, test that thumbnail images have a column that contains a parent image id
+                    BaseImage.ProcessedImages.Add(this);
+                //}
             }
             catch (Exception e)
             {
