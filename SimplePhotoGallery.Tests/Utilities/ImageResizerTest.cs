@@ -144,9 +144,38 @@ namespace SimplePhotoGallery.Tests.Utilities
         }
 
         [TestMethod]
+        public void GenerateMissingThumbs()
+        {
+            GalleryContext db = new GalleryContext();
+            var originals = from oi in db.Images.Include("ProcessedImages") where oi is OriginalImage select oi;
+            // if I do not do this (var origList = originals.ToArray()), I get the following exception when I execute AddThumbs below:
+            //  "There is already an open DataReader associated with this Command which must be closed first."
+            var origList = originals.ToArray();
+            var thumbs = from th in db.Thumbnails select th;
+            var thumbList = thumbs.ToList();
+
+            foreach (OriginalImage orig in origList)
+            {
+                if (File.Exists(orig.Filename))
+                {
+                    orig.AddThumbs(thumbList);
+                }
+                else
+                {
+                    // file does not exist, so remove from database
+                    db.Images.Remove(orig);
+                }
+            }
+            db.SaveChanges();
+
+        }
+
+        [TestMethod]
         public void GetOriginalImages()
         {
             GalleryContext db = new GalleryContext();
+
+            var connStr = db.Database.Connection.ConnectionString;
             // get the original images
             // var allImages = db.Images.Where(img => img is ProcessedImage);
 

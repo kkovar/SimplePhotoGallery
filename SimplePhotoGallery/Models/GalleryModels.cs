@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using LevDan.Exif;
 
 namespace SimplePhotoGallery.Models
 {
@@ -80,10 +81,12 @@ namespace SimplePhotoGallery.Models
 
     public class OriginalImage : GalleryImage
     {
+
         // fields to help filter/organize into galleries.
         // "Kiszka", Eve, etc
+        // could be provided by Exif
         public string Subject { get; set; }
-        // "Michigan Ave" 
+        // "Michigan Ave" this could be suplemented by EXIF geolocation
         public string Location { get; set; }
         // "Eve's Bday"
         public string Event { get; set; }
@@ -94,6 +97,56 @@ namespace SimplePhotoGallery.Models
         // 
         public void AddThumbs(List<Thumbnail> thumbsToGenerate)
         {
+            // read metadata and if the orientation is 90 cw or 90 ccw, perform the rotation
+            // todo, refactor the tag processing into its own function, as AddThumbs should do just that
+            Image imgPhotoToRotate = Image.FromFile(Filename);
+
+            var exif = new ExifTagCollection(Filename);
+
+            // todo, use other fields such as artist and exposure data and to populate related fields?
+
+            var PropertyItems = imgPhotoToRotate.PropertyItems;
+            // to
+            var orientation = exif.Where(ex => ex.FieldName == "Orientation").FirstOrDefault();
+            // if no orinentation property exists, then the camera figured out the correct height and width (eg cell phone cam, with accelerometer)
+            // or if the orientation is reported as "normal" no need to rotate
+            if (orientation != null &&
+                orientation.Value != "The 0th row is at the visual top of the image, and the 0th column is the visual left-hand side.")
+            {
+                int angle = 0;
+                if (orientation.Value == "The 0th row is the visual right-hand side of the image, and the 0th column is the visual top.")
+                {
+                    // rotate 90 degrees, this seems to be most common with camera that sense the orientation but somehow
+                    // keep width to be the larger dimension and height the smaller, as in a point and shoot
+                    angle = 90;
+                }
+                else if (orientation.Value ==  "The 0th row is the visual left-hand side of the image, and the 0th column is the visual bottom.")
+                {
+                    angle = 270;
+                }
+                Image imgPhoto = ImageProcessor.RotateImage(imgPhotoToRotate, angle);
+                foreach(var pi in imgPhotoToRotate.PropertyItems)
+                {
+                    // todo, create symbolic constants for Id values
+                    // copy properties, except for orientation, which we set to "normal"
+                    // i.e. "The 0th row is at the visual top of the image, and the 0th column is the visual left-hand side."
+                    if (pi.Id == 0x112)
+                    {
+                        ushort normal = 1;
+                        pi.Value = BitConverter.GetBytes(normal);
+                    }
+                    imgPhoto.SetPropertyItem(pi);
+                }
+                imgPhotoToRotate.Dispose();
+                imgPhoto.Save(Filename, ImageFormat.Jpeg);
+
+            }
+
+            // here I want to set the orientation to "1" or normal after rotating it
+            // imgPhotoToRotate.SetPropertyItem(PropertyItems[0]);
+
+            //
+
             // get the standard thumbs
             foreach (var th in thumbsToGenerate)
             {
@@ -164,24 +217,24 @@ namespace SimplePhotoGallery.Models
 
             try
             {
-                //lock (myLock)
-                //{
+                // this assumes that the parent image has saved itself
+                Image imgPhotoBase = Image.FromFile(this.BaseImage.Filename);
 
-                    // this assumes that the parent image has saved itself
-                    Image imgPhotoVert = Image.FromFile(this.BaseImage.Filename);
+                Image imgPhoto = ImageProcessor.ConstrainProportions(imgPhotoBase, Thumbnail.MaxWidth, ImageProcessor.Dimensions.Width);
+                imgPhotoBase.Dispose();
 
-                    Image imgPhoto = ImageProcessor.ConstrainProportions(imgPhotoVert, Thumbnail.MaxWidth, ImageProcessor.Dimensions.Width);
-                    imgPhotoVert.Dispose();
+                // todo: give user a way to specify an alternative file name for the thumb
+                Filename = Path.Combine(Path.GetDirectoryName(BaseImage.Filename), (Path.GetFileNameWithoutExtension(BaseImage.Filename) + "_" + Thumbnail.Description + Path.GetExtension(BaseImage.Filename)));
 
-                    // todo: give user a way to specify an alternative file name for the thumb
-                    Filename = Path.Combine(Path.GetDirectoryName(BaseImage.Filename), (Path.GetFileNameWithoutExtension(BaseImage.Filename) + "_" + Thumbnail.Description + Path.GetExtension(BaseImage.Filename)));
-
-
-                    imgPhoto.Save(Filename, ImageFormat.Jpeg);
-                    imgPhoto.Dispose();
-                    // todo, test that thumbnail images have a column that contains a parent image id
+                imgPhoto.Save(Filename, ImageFormat.Jpeg);
+               
+                imgPhoto.Dispose();
+                // todo, test that thumbnail images have a column that contains a parent image id
+                // if the thumbnail exists, do not re-add it to the collection
+                if (!BaseImage.ProcessedImages.Any(si => ((ScaledImage)si).Thumbnail.ThumbnailId == Thumbnail.ThumbnailId))
+                {
                     BaseImage.ProcessedImages.Add(this);
-                //}
+                }
             }
             catch (Exception e)
             {

@@ -156,6 +156,9 @@
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ThumbnailController.cs" />
     <Compile Include="Controllers\UploadPicturesController.cs" />
+    <Compile Include="ExifMetadata\ExifTag.cs" />
+    <Compile Include="ExifMetadata\ExifTagCollection.cs" />
+    <Compile Include="ExifMetadata\Util.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
