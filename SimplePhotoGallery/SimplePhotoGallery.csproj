@@ -295,7 +295,9 @@
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="todos.txt" />
     <Content Include="Views\Gallery\GalleryHomeLayout.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

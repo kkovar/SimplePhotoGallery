@@ -305,6 +305,33 @@ namespace SimplePhotoGallery.Models
 
     }
 
+    // wraps a directory with additional info about the images contained
+    // for example "rank" or relevance based on the sizes and attributes of the image files
+    // and the root directory (for example a subdirectory of Program Files would likely be a
+    // location for non-user generated images)
+    public class LocalImageDirectory
+    {
+        // if < 100 kb or so, probably just images used in a app
+        public int averageImageSize;
+        public string
+
+    }
+
+    // wrap a FileSystemInfo with additional data about the image
+    // such as exif
+    public class LocalImage : FileSystemInfo
+    {
+        public LocalImage()
+        {
+
+        }
+
+        public int LocalImageId { get; set; }
+        public string FileName { get { return this.Name ;} 
+            set; }
+        //public int F
+    }
+
     public class GalleryContext : DbContext
     {
         public DbSet<GalleryImage> Images { get; set; }

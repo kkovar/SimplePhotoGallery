@@ -18,4 +18,52 @@ Simplest would be that the dropdown is populated
 2. The gallery will have around 10-30 images in one or more rows of thumbs and a large image for
 the currently selected image in the thumbs.
 
-322%Mammal3
+Moving to siemens laptop: 
+Restored database to sql2014 server. Fixed connection string in project, so i could browse the tables in server explorer.
+
+
+Change:
+ <connectionStrings>
+    <add name="GalleryContext" connectionString="Data Source=localhost\DEVELOPMENT;Initial Catalog=SimplePhotoGallery.Models.GalleryContext;Integrated Security=True" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+ 
+ Now my images are missing and importing new ones will not have the same name. all I have is the uploader to repopulate
+ the gallery.
+10/22/14: 
+
+Design the page using images and html. Use a size based on the page size and have an attractive navigation
+ widget.
+
+Investigate using canvas and image manipulation API.
+
+
+
+Investigate XAML/C# for "WinRT" development. Read at least a tutorial. Black Friday: get a win 8.1 laptop.
+
+Do some Xaml at Siemens, read book at lunchtime. Learn principles of WPF, even if it is kind of legacy.
+
+DIYcyclist Wordpress and development of a bike maintenance/upgrade/trade system for DIY cyclists.
+
+kensbikes, it's on Arvixe, put on Orchard.'
+Update Arvixe billing.
+
+kenkovar, it's on Drupal/HostGator. Take it off of drupal and do wordpress.
+
+teresagalas, it's on Gallery. Upgrade and make more modern. Get her involved. Convert to Wordpress and use image plugin??
+
+Find/evaluate WP photo extensions.
+
+Reevaluate jquery UI components and how they fit in to the current "ecosystem" of frameworks like Angular and Ember and CMS's.'
+
+Get Orchard and get a feel for how it would be as a open source system to contribute to.
+
+spg: develop gallery admin page where a user can map directories to galleries and pick the images that will go into a gallery.
+
+user will have a page that shows the local directories. browse for a directory and the server will map the directory 
+to a route that reflects the users description
+so we will have D:\Users\z003czax\My Pictures\fromAlcatel mapped to something like localhost/galleries/alcatel
+
+
+work on orchard
+do gallery with strips of images
+have a controller that runs a search for images (jpeg's, but user can select extension') and puts the iist into a nice form
